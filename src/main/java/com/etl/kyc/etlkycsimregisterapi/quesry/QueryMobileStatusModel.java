@@ -1,63 +1,72 @@
 package com.etl.kyc.etlkycsimregisterapi.quesry;
 
+import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import com.etl.kyc.etlkycsimregisterapi.db.Config;
+import com.etl.kyc.etlkycsimregisterapi.db.DatabaseConnectionPool;
+
 public class QueryMobileStatusModel {
 
-    private String resultCode;
-    private String resultMsg;
-    private String transactionID;
-    private String ExtraPara;
-    private String mobileStatus;
-    private String mobileStatusDes;
-    public QueryMobileStatusModel() {
-        // TODO Auto-generated constructor stub
-    }
+	public QueryMobileStatusModel() {
+		// TODO Auto-generated constructor stub
+	}
 
-    public String getResultCode() {
-        return resultCode;
-    }
+	private String resultCode;
+	private String resultMsg;
+	private String transactionID;
+	private String ExtraPara;
+	private String mobileStatus;
+	private String mobileStatusDes;
 
-    public void setResultCode(String resultCode) {
-        this.resultCode = resultCode;
-    }
+	public String getResultCode() {
+		return resultCode;
+	}
 
-    public String getResultMsg() {
-        return resultMsg;
-    }
+	public void setResultCode(String resultCode) {
+		this.resultCode = resultCode;
+	}
 
-    public void setResultMsg(String resultMsg) {
-        this.resultMsg = resultMsg;
-    }
+	public String getResultMsg() {
+		return resultMsg;
+	}
 
-    public String getTransactionID() {
-        return transactionID;
-    }
+	public void setResultMsg(String resultMsg) {
+		this.resultMsg = resultMsg;
+	}
 
-    public void setTransactionID(String transactionID) {
-        this.transactionID = transactionID;
-    }
+	public String getTransactionID() {
+		return transactionID;
+	}
 
-    public String getExtraPara() {
-        return ExtraPara;
-    }
+	public void setTransactionID(String transactionID) {
+		this.transactionID = transactionID;
+	}
 
-    public void setExtraPara(String extraPara) {
-        ExtraPara = extraPara;
-    }
+	public String getExtraPara() {
+		return ExtraPara;
+	}
 
-    public String getMobileStatus() {
-        return mobileStatus;
-    }
+	public void setExtraPara(String extraPara) {
+		ExtraPara = extraPara;
+	}
 
-    public void setMobileStatus(String mobileStatus) {
-        this.mobileStatus = mobileStatus;
-    }
+	public String getMobileStatus() {
+		return mobileStatus;
+	}
 
-    public String getMobileStatusDes() {
-        return mobileStatusDes;
-    }
+	public void setMobileStatus(String mobileStatus) {
+		this.mobileStatus = mobileStatus;
+	}
 
-    public void setMobileStatusDes(String mobileStatusDes) {
-        this.mobileStatusDes = mobileStatusDes;
-    }
+	public String getMobileStatusDes() {
+		return mobileStatusDes;
+	}
+
+	public void setMobileStatusDes(String mobileStatusDes) {
+		this.mobileStatusDes = mobileStatusDes;
+	}
 
 }

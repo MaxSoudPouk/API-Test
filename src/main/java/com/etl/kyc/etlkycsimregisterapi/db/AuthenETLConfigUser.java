@@ -3,6 +3,10 @@ package com.etl.kyc.etlkycsimregisterapi.db;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.Callable;
 
 
@@ -11,12 +15,12 @@ public class AuthenETLConfigUser implements Callable<String> {
 	java.sql.PreparedStatement pstmt;
 	ResultSet rs;
 	DatabaseConnectionPool dbConnectionPool;
-	private String userId;
+	private String userName;
 	private String userPass;
 	Connection connection1;
 
-	public AuthenETLConfigUser(final String user_id, final String name_Pass) {
-		this.userId = user_id;
+	public AuthenETLConfigUser(final String user_name, final String name_Pass) {
+		this.userName = user_name;
 		this.userPass = name_Pass;
 	}
 
@@ -26,7 +30,7 @@ public class AuthenETLConfigUser implements Callable<String> {
 		Statement statementtAuth = null;
 		ResultSet resultSettAuth = null;
 		Connection conntAuth = null;
-		String sqlCheckPrepaid = "SELECT user_id,first_name,last_name from tb_user_info  where user_name='" + this.userId
+		String sqlCheckPrepaid = "SELECT user_id,first_name,last_name from tb_user_info  where user_name='" + this.userName
 				+ "' and user_password = '" + this.userPass + "' and role_id in(2,3)  LIMIT 1";
 
 //		final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -38,12 +42,8 @@ public class AuthenETLConfigUser implements Callable<String> {
 
 		try {
 
-			dbConnectionPool = new DatabaseConnectionPool(
-					Config.driverServr,
-					Config.dburlServr,
-					Config.dbUserNameServr,
-					Config.dbPasswordServr
-			);
+			dbConnectionPool = new DatabaseConnectionPool(Config.driverServr, Config.dburlServr, Config.dbUserNameServr,
+					Config.dbPasswordServr);
 			connection1 = dbConnectionPool.getConnection();
 			pstmt = connection1.prepareStatement(sqlCheckPrepaid);
 			rs = (ResultSet) pstmt.executeQuery();

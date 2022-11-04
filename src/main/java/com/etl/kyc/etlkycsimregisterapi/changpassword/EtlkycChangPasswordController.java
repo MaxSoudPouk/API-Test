@@ -153,101 +153,89 @@ public class EtlkycChangPasswordController extends Thread {
 
                 if (jwtencoderesult) {
 
-
-                    PreparedStatement pstmt;
+                    java.sql.PreparedStatement pstmt;
                     ResultSet rs;
-                    DatabaseConnectionPool dbConnectionPool;
-                    Connection connection;
+                    DatabaseConnectionPool dbConnectionPool = null;
+                    Connection connection1 = null;
+                    String strRetunr = null;
+                    Statement statementtAuth = null;
+                    ResultSet resultSettAuth = null;
+                    Connection conntAuth = null;
+                    String user_password = null;
                     String sqlpassword = "SELECT user_password from tb_user_info where user_id = '"
                             + userid + "'  LIMIT 1";
 
                     try {
-                        dbConnectionPool = new DatabaseConnectionPool(
-                                Config.driverServr,
-                                Config.dburlServr,
-                                Config.dbUserNameServr,
-                                Config.dbPasswordServr
-                        );
-                        connection = dbConnectionPool.getConnection();
-                        pstmt = connection.prepareStatement(sqlpassword);
-                        rs = pstmt.executeQuery();
+
+                        dbConnectionPool = new DatabaseConnectionPool(Config.driverServr, Config.dburlServr, Config.dbUserNameServr,
+                                Config.dbPasswordServr);
+                        connection1 = dbConnectionPool.getConnection();
+                        pstmt = connection1.prepareStatement(sqlpassword);
+                        rs = (ResultSet) pstmt.executeQuery();
 
                         if (rs != null && rs.next()) {
-                            String user_password = rs.getString("user_password");
+                            user_password = rs.getString("user_password");
+                        }
 
 
-                            if (user_password.equals(passwordEncrOldPassword)) {
+                        if (oldpassword.equals(newpassowrd)) {
+                            passwordModel.setResultCode(GlobalParameter.error_oldpassword);
+                            passwordModel.setResultMsg(GlobalParameter.error_oldpassword_msg);
+                            passwordModel.setExtraPara("n");
 
-                                try {
-                                    String dbURL = "jdbc:mysql://localhost:3307/etl_simcard_kyc_db";
-                                    String username = "root";
-                                    String password = "";
+                            return passwordModel;
 
-                                    try {
+                        } else if (user_password.equals(passwordEncrOldPassword)) {
 
-                                        Connection conn = DriverManager.getConnection(dbURL, username, password);
+                            try {
+                                System.out.println("Connected");
+                                String sql = "UPDATE tb_user_info SET user_password =? WHERE user_id =?";
+                                PreparedStatement statement = connection1.prepareStatement(sql);
 
-                                        if (conn != null) {
-                                            System.out.println("Connected");
-                                            String sql = "UPDATE tb_user_info SET user_password =? WHERE user_id =?";
+                                statement.setString(1, passwordEncr);
+                                statement.setString(2, userid);
 
-//                                            System.out.println(sql);
+                                int rowsUpdated = statement.executeUpdate();
+                                if (rowsUpdated > 0) {
 
+                                    System.out.println("An existing user was updated successfully!");
+                                    System.out.println(newpassowrd);
 
-                                            PreparedStatement statement = conn.prepareStatement(sql);
-                                            statement.setString(1, passwordEncr);
-                                            statement.setString(2, userid);
-
-                                            int rowsUpdated = statement.executeUpdate();
-                                            if (rowsUpdated > 0) {
-
-                                                System.out.println("An existing user was updated successfully!");
-                                                System.out.println(newpassowrd);
-
-                                                passwordModel.setResultCode(GlobalParameter.error_ok_success);
-                                                passwordModel.setResultMsg(GlobalParameter.error_ok_success_msg);
-                                                passwordModel.setOldpassword("Password correct");
-                                                passwordModel.setNewpassword("Password updated successfully");
-                                                passwordModel.setDatetime(datetime);
-                                                passwordModel.setTransactionID(transactionNo);
-                                                passwordModel.setExtraPara("n");
-
-                                                return passwordModel;
-                                            }
-                                        }
-                                    } catch (SQLException ex) {
-                                        ex.printStackTrace();
-                                    }
-
-
-                                } catch (Exception ex) {
-                                    passwordModel.setResultCode(GlobalParameter.error_non_authoritative);
-                                    passwordModel.setResultMsg(GlobalParameter.error_non_authoritative_msg);
-                                    passwordModel.setNewpassword(" ");
-                                    passwordModel.setOldpassword(" ");
+                                    passwordModel.setResultCode(GlobalParameter.error_ok_success);
+                                    passwordModel.setResultMsg(GlobalParameter.error_ok_success_msg);
+                                    passwordModel.setTransactionID(transactionNo);
                                     passwordModel.setExtraPara("n");
+
                                     return passwordModel;
                                 }
 
-                            }else {
-                                passwordModel.setResultCode(GlobalParameter.error_non_authoritative);
-                                passwordModel.setResultMsg(GlobalParameter.error_non_authoritative_msg);
-                                passwordModel.setNewpassword(" ");
-                                passwordModel.setOldpassword(" ");
+
+                            } catch (SQLException ex) {
+
+                                passwordModel.setResultCode(GlobalParameter.error_change_password);
+                                passwordModel.setResultMsg(GlobalParameter.error_change_password_msg);
                                 passwordModel.setExtraPara("n");
 
-                                return passwordModel;
+
                             }
+
+
+                        } else {
+                            passwordModel.setResultCode(GlobalParameter.error_change_password);
+                            passwordModel.setResultMsg(GlobalParameter.error_change_password_msg);
+                            passwordModel.setExtraPara("n");
+
+                            return passwordModel;
                         }
 
-                    } catch (Exception e) {
 
-                        passwordModel.setNewpassword(" ");
-                        passwordModel.setExtraPara("Error Password");
-                        return passwordModel;
+                    } catch (Exception e) {
+                        passwordModel.setResultCode(GlobalParameter.error_unavailable);
+                        passwordModel.setResultMsg(GlobalParameter.error_unavailable_msg);
+                        passwordModel.setExtraPara("n");
 
                     }
-
+//=======================================================================================================
 
                 } else {
 

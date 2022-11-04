@@ -1,29 +1,40 @@
 package com.etl.kyc.etlkycsimregisterapi.quesry;
 
-import com.etl.kyc.etlkycsimregisterapi.db.DatabaseConnectionPool;
-
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.Callable;
+
+import com.etl.kyc.etlkycsimregisterapi.SIM_status;
+import com.etl.kyc.etlkycsimregisterapi.db.Config;
+import com.etl.kyc.etlkycsimregisterapi.db.DatabaseConnectionPool;
 
 
 public class Querymobilestatus {
 
-    java.sql.PreparedStatement pstmt;
-    ResultSet rs;
-    DatabaseConnectionPool dbConnectionPool;
-    Connection connection1;
-    private String mobilenumber;
+	java.sql.PreparedStatement pstmt;
+	ResultSet rs;
+	DatabaseConnectionPool dbConnectionPool;
+	private String mobilenumber;
+	Connection connection1;
 
-    //public  querymodel Querymobilestatus(final String mobilenumber) {
-    //	this.mobilenumber = mobilenumber;
-
-
-    //@Override
-    //public String call() {
-    //
-
-    //public  querymodel QuerySIM() throws NoSuchAlgorithmException {
-
+	//public  querymodel Querymobilestatus(final String mobilenumber) {
+	//	this.mobilenumber = mobilenumber;
+		
+	
+	
+	
+	//@Override
+	//public String call() {
+	//
+	
+	//public  querymodel QuerySIM() throws NoSuchAlgorithmException {
+		
 //		System.out.println("mobilenumber1111-======:: " + mobilenumber);
 //	
 //		String strRetunr = null;
@@ -104,6 +115,7 @@ public class Querymobilestatus {
 //	}
 //	
 //	
-
+	
+	
 
 }

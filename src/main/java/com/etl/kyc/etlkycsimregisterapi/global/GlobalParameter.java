@@ -1,6 +1,7 @@
 package com.etl.kyc.etlkycsimregisterapi.global;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 
 public class GlobalParameter {
 
@@ -8,12 +9,15 @@ public class GlobalParameter {
     public static HashMap<String, String> hMapTransaction = new HashMap<String, String>();
 
 
+
     public static HashMap<String, String> hMapOTP_store = new HashMap<String, String>();
 
     //hMapLoginFailSession   mobile number = countFailLastFail|date time new allow
 
 
+
     public static String lotto_patch_cancel_bill = "/home/kycimages/";
+
 
 
     public static boolean flageProcessState = true;
@@ -24,58 +28,76 @@ public class GlobalParameter {
     public static String homePatchLogSQLfail;
     public static String homePatchLogProcessDerail;
 
-    public static String jwt_sec_key = "9c5f1181fd9341ea08885dd5574be63a51545342e69b6e561301c2858d1abb03";
-    public static String sign_key = "36b128b5dada223c04779bd27687b3c17b375a5d19a2ee735507922af63bcaad";
+    public static String jwt_sec_key ="9c5f1181fd9341ea08885dd5574be63a51545342e69b6e561301c2858d1abb03";
+    public static String sign_key ="36b128b5dada223c04779bd27687b3c17b375a5d19a2ee735507922af63bcaad";
+
 
 
     ///===================================================================================
-    public static String error_continues = "100";
-    public static String error_continues_msg = "Continue";
+    public static String  error_continues =  "100";
+    public static String  error_continues_msg =  "Continue";
 
-    public static String error_switching_protocols = "101";
-    public static String error_switching_protocols_msg = "Switching Protocols";
+    public static String  error_switching_protocols =  "101";
+    public static String  error_switching_protocols_msg =  "Switching Protocols";
 
-    public static String error_processing = "102";
-    public static String error_processings_msg = "Processing (WebDAV; RFC 2518)";
+    public static String  error_processing =  "102";
+    public static String  error_processings_msg =  "Processing (WebDAV; RFC 2518)";
 
-    public static String error_early_hints = "103";
-    public static String error_early_hints_msg = "Early Hints";
+    public static String  error_early_hints ="103";
+    public static String  error_early_hints_msg =  "Early Hints";
 
-    public static String error_ok_success = "200";
-    public static String error_ok_success_msg = "OK, success";
+    public static String  error_ok_success ="200";
+    public static String  error_ok_success_msg =  "OK, success";
 
-    public static String error_created = "201";
-    public static String error_created_msg = "Created";
+    public static String  error_created = "201";
+    public static String  error_created_msg = "Created";
 
     public static String error_accepted = "202";
     public static String error_accepted_msg = "Accepted";
 
-    public static String error_non_authoritative = "203";
-    public static String error_non_authoritative_msg = "Non-Authoritative Information ";
+    public static String  error_non_authoritative = "203";
+    public static String  error_non_authoritative_msg = "Non-Authoritative Information ";
 
-    public static String error_non_authoritative_sign = "2033";
-    public static String error_non_authoritative_msg_sign = "Non-Authoritative, invalid sign";
-
-
-    public static String error_non_authoritative_sign_wrong_lengt = "2034";
-    public static String error_non_authoritative_sign_wrong_lengt_msg = "Non-Authoritative, invalid sign lenth";
-
-    public static String error_no_content = "203";
-    public static String error_no_content_msg = "No Content";
+    public static String  error_non_authoritative_sign = "2033";
+    public static String  error_non_authoritative_msg_sign = "Non-Authoritative, invalid sign";
 
 
-    public static String error_reset_content = "205";
-    public static String error_reset_content_msg = "Reset Content";
+    public static String  error_non_authoritative_sign_wrong_lengt = "2034";
+    public static String  error_non_authoritative_sign_wrong_lengt_msg = "Non-Authoritative, invalid sign lenth";
 
-    public static String error_partial_content = "206";
-    public static String error_partial_content_msg = "Partial Content";
+    public static String  error_no_content = "203";
+    public static String  error_no_content_msg = "No Content";
 
-    public static String error_multi_status = "207";
-    public static String error_multi_status_msg = "Multi-Status";
 
-    public static String error_already_reported = "208";
-    public static String error_already_reported_msg = "Already Reported";
+    public static String  error_reset_content = "205";
+    public static String  error_reset_content_msg = "Reset Content";
 
+    public static String  error_partial_content = "206";
+    public static String  error_partial_content_msg = "Partial Content";
+
+    public static String  error_multi_status = "207";
+    public static String  error_multi_status_msg = "Multi-Status";
+
+    public static String  error_already_reported = "208";
+    public static String  error_already_reported_msg = "Already Reported";
+
+    public static String  error_oldpassword = "209";
+    public static String  error_oldpassword_msg = "New password and old password the same";
+
+    public static String  error_change_password = "209";
+    public static String  error_change_password_msg = "Change password not success";
+
+    public static String  error_upload_image = "210";
+    public static String  error_upload_image_msg = "Can not Upload image";
+
+    public static String  error_token = "211";
+    public static String  error_token_msg = "Token key not correct";
+
+    public static String  error_sign = "212";
+    public static String  error_sign_msg = "Sign not correct";
+
+    public static String  error_insert_sim_register = "213";
+    public static String  error_insert_sim_register_smg = "Insert SIM register fail";
 
 //    226 IM Used (RFC 3229)
 //    3xx redirection
@@ -101,10 +123,10 @@ public class GlobalParameter {
 //    406 Not Acceptable
 
 
-    public static String error_not_acceptable = "406";
-    public static String error_not_acceptable_msg = "parameter not acceptable";
+    public static String  error_not_acceptable = "406";
+    public static String  error_not_acceptable_msg = "parameter not acceptable";
 
-    //    407 Proxy Authentication Required (RFC 7235)
+//    407 Proxy Authentication Required (RFC 7235)
 //    408 Request Timeout
 //    409 Conflict
 //    410 Gone
@@ -122,16 +144,14 @@ public class GlobalParameter {
 //    424 Failed Dependency (WebDAV; RFC 4918)
 //    425 Too Early (RFC 8470)
 //    Indicates that the server is unwilling to risk processing a request that might be replayed.
-    public static String error_Upgrade_Required = "426";
-    public static String error_Upgrade_Required_msg = "upgrade required not acceptable";
 //    426 Upgrade Required
 //    The client should switch to a different protocol such as TLS/1.3, given in the Upgrade header field.[56]
 //    428 Precondition Required (RFC 6585)
 //    429 Too Many Requests (RFC 6585)
 //    431 Request Header Fields Too Large (RFC 6585)
 
-    public static String error_unavailable = "451";
-    public static String error_unavailable_msg = "Unavailable For Legal Reasonsd";
+    public static String  error_unavailable = "451";
+    public static String  error_unavailable_msg = "Unavailable For Legal Reasonsd";
     //
 //    451 Unavailable For Legal Reasons (RFC 7725)
 //
@@ -153,8 +173,8 @@ public class GlobalParameter {
 //    430 Request Header Fields Too Large (Shopify)
 //    450 Blocked by Windows Parental Controls (Microsoft)
 //    498 Invalid Token (Esri)
-    public static String error_invalidtoken = "498";
-    public static String error_invalidtoken_msg = "Invalid Token";
+    public static String  error_invalidtoken = "498";
+    public static String  error_invalidtoken_msg = "Invalid Token";
 //    499 Token Required (Esri)
 
 //    509 Bandwidth Limit Exceeded (Apache Web Server/cPanel)
@@ -184,6 +204,7 @@ public class GlobalParameter {
 //    110 Response is Stale
 //    111 Revalidation Failed
 //    112 Disconnected Operation
+
 
 
 //    113 Heuristic Expiration

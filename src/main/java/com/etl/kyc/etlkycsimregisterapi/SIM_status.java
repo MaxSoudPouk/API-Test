@@ -1,10 +1,18 @@
 package com.etl.kyc.etlkycsimregisterapi;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.xml.bind.DatatypeConverter;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 
 public class SIM_status {
 	

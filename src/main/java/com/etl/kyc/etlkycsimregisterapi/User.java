@@ -1,14 +1,27 @@
 package com.etl.kyc.etlkycsimregisterapi;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 
+import javax.crypto.spec.SecretKeySpec;
+
+
+import org.springframework.expression.spel.support.StandardTypeConverter;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 //@Entity
 //@Table(name = "tb_test")

@@ -1,10 +1,12 @@
 package com.etl.kyc.etlkycsimregisterapi.testcode;
 
+import com.etl.kyc.etlkycsimregisterapi.security.GenerateSignkey_sha256;
+
 public class GenSign {
 
-    public GenSign() {
-        // TODO Auto-generated constructor stub
-    }
+	public GenSign() {
+		// TODO Auto-generated constructor stub
+	}
 
 //	public static void main(String[] args) {
 //		
