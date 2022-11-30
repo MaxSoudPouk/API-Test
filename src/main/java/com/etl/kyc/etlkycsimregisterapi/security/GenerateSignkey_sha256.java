@@ -1,9 +1,9 @@
 package com.etl.kyc.etlkycsimregisterapi.security;
 
-import java.security.MessageDigest;
-import javax.xml.bind.DatatypeConverter;
-
 import com.etl.kyc.etlkycsimregisterapi.global.GlobalParameter;
+
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
 
 
 
@@ -14,18 +14,18 @@ public class GenerateSignkey_sha256 extends Thread {
 	}
 
 	public String generateSignkey_sha256(String userName, String channel, String transactionID,
-			String msisdn, String remark,String extraParams, String uuid, String des_url) {
+			 String msisdn, String remark, String extraParams, String uuid, String des_url) {
 		
 		try {
 
 			String signStr = "charset=utf-8&userName=" +
-					userName +
+					  userName +
 			        "&channel=" +
-			        channel +
+			          channel +
 			        "&transactionID=" +
-			        transactionID +
+			          transactionID +
 			        "&msisdn=" +
-			        msisdn +
+		              msisdn +
 			        "&remark=" +
 			        remark +
 			        "&extraParams=" +
@@ -40,6 +40,9 @@ public class GenerateSignkey_sha256 extends Thread {
 			String sign = "";
 			try {
 				sign = getSHA256Hash(signStr);
+				
+				//sign = getSHA256Hash("1");
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

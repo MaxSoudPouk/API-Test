@@ -90,21 +90,14 @@ public class JWT_Security_Encode_Decode_Java extends Thread {
 		 // System.out.println(" jwtgetUserID========:: " + userID);
 		 // System.out.println(" jwtgetuserName========:: " + userName);
 
-// <<<<<<< HEAD
-// //	     This line will throw an exception if it is not a signed JWS (as expected)
-// 	    Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(GlobalParameter.sign_key)).parseClaimsJws(jwt)
-// 		    .getBody();
-	    
-	    
-	
 
-// =======
 	    // This line will throw an exception if it is not a signed JWS (as expected)
 	    Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(GlobalParameter.sign_key)).parseClaimsJws(jwt)
 		    .getBody();
 //	    
 		//  System.out.println("jwtuserID========:: " + userID);
 	
+
 // System.out.println(" GlobalParameter.sign_key========:: " + GlobalParameter.sign_key);
 //		Claims claims = (Claims) Jwts.parserBuilder()
 //			         .requireAudience(GlobalParameter.sign_key)
@@ -115,8 +108,8 @@ public class JWT_Security_Encode_Decode_Java extends Thread {
 	    String getUserName = claims.getSubject();
 	    String getUserID = claims.getIssuer();
 	    
-	 //   System.out.println(" jwtgetUserName11111========:: " + getUserName);
-	   // System.out.println(" jwtgetUserID1111111========:: " + getUserID);
+	 // System.out.println(" jwtgetUserName11111========:: " + getUserName);
+	 // System.out.println(" jwtgetUserID1111111========:: " + getUserID);
 
 //	    String isSessionIDJWT = "";
 //

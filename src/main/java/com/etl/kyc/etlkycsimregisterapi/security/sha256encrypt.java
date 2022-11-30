@@ -17,6 +17,4 @@ public String getSha256encrypt(String sha256) throws NoSuchAlgorithmException  {
 		return hashStr;
 		
 	}
-
-
 }

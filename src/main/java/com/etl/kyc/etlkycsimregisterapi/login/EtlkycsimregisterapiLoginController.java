@@ -58,23 +58,16 @@ public class EtlkycsimregisterapiLoginController extends Thread {
 	}
 
 	@PostMapping("/v1/loginAccount")
-	public LoginModel login(
-			@RequestParam(defaultValue = "") String sign,
-			@RequestParam(defaultValue = "") String userName, 
-			@RequestParam(defaultValue = "") String pssword,
-			@RequestParam(defaultValue = "") String channel, 
-			@RequestParam(defaultValue = "") String transactionNo,
-			@RequestParam(defaultValue = "") String remark, 
-			@RequestParam(defaultValue = "") String callback,
-			@RequestParam(defaultValue = "") String extraParams, 
-			@RequestParam(defaultValue = "") String mobileNumber,
-			@RequestParam(defaultValue = "") String uuid, 
-			@RequestParam(defaultValue = "") String latitude,
-			@RequestParam(defaultValue = "") String longtitude,
-			@RequestParam(defaultValue = "") String mobileInfo) {
+	public LoginModel login(@RequestParam(defaultValue = "") String sign,
+			@RequestParam(defaultValue = "") String userName, @RequestParam(defaultValue = "") String pssword,
+			@RequestParam(defaultValue = "") String channel, @RequestParam(defaultValue = "") String transactionNo,
+			@RequestParam(defaultValue = "") String remark, @RequestParam(defaultValue = "") String callback,
+			@RequestParam(defaultValue = "") String extraParams, @RequestParam(defaultValue = "") String mobileNumber,
+			@RequestParam(defaultValue = "") String uuid, @RequestParam(defaultValue = "") String latitude,
+			@RequestParam(defaultValue = "") String longtitude,@RequestParam(defaultValue = "") String mobileInfo) {
 
-		System.out.println("##### /v1/loginAccount");
-		System.out.println("##### /v1/sign=" + sign);
+		//System.out.println("##### /v1/loginAccount");
+		//System.out.println("##### /v1/sign=" + sign);
 
 		LoginModel model = new LoginModel();
 
@@ -96,19 +89,15 @@ public class EtlkycsimregisterapiLoginController extends Thread {
 
 			model.setResultCode(GlobalParameter.error_not_acceptable);
 			model.setResultMsg(GlobalParameter.error_not_acceptable_msg);
-			model.setExtraPara("n");
-			model.setToken("n");
-			model.setUserID("n");
-			model.setFirstName("n");
-			model.setUserName(userName);
+	
 			return model;
 
 		}
 
 		GenerateSignkey_sha256 signkey_sha256 = new GenerateSignkey_sha256();
 		String des_url = "/etllao.com/v1/loginAccount";
-		String serverSign = signkey_sha256.generateSignkey_sha256(userName, channel, transactionNo, mobileNumber,
-				remark, extraParams, uuid, des_url);
+		String serverSign = signkey_sha256.generateSignkey_sha256(userName, channel, transactionNo,
+				mobileNumber,	remark, extraParams, uuid, des_url);
 
 		System.out.println("serverSign=" + serverSign);
 
@@ -127,11 +116,12 @@ public class EtlkycsimregisterapiLoginController extends Thread {
 
 				sha256encrypt kSha256encrypt = new sha256encrypt();
 				String passwordEncr;
-				passwordEncr = kSha256encrypt.getSha256encrypt(pssword);
+				passwordEncr = kSha256encrypt.getSha256encrypt(userName+pssword);
 
 				ExecutorService service = Executors.newSingleThreadExecutor();
 				AuthenETLConfigUser bprocessingCallAble = new AuthenETLConfigUser(userName.trim(), passwordEncr.trim());
 				Future<String> future = service.submit(bprocessingCallAble);
+				
 				String resultAuthen = null;
 				try {
 					resultAuthen = future.get();
@@ -167,7 +157,6 @@ public class EtlkycsimregisterapiLoginController extends Thread {
 					JWT_Security_Encode_Decode_Java encode_Decode_Java = new JWT_Security_Encode_Decode_Java();
 					long ttlMillis = 604800000; // 604800000 = 1 week, 3 h = 10800000 ms
 					jwtTokenStrng = encode_Decode_Java.createJWTSec(transactionNo, ttlMillis, userName, userID);
-					System.out.println("ok");
 
 					model.setResultCode(GlobalParameter.error_ok_success);
 					model.setResultMsg(GlobalParameter.error_ok_success_msg);
@@ -179,14 +168,9 @@ public class EtlkycsimregisterapiLoginController extends Thread {
 					return model;
 
 				} else {
-
-					model.setResultCode(GlobalParameter.error_non_authoritative);
-					model.setResultMsg(GlobalParameter.error_non_authoritative_msg);
-					model.setExtraPara("n");
-					model.setToken("n");
-					model.setUserID("n");
+					model.setResultCode(GlobalParameter.fail_login_notsuccess);
+					model.setResultMsg(GlobalParameter.fail_login_notsuccess_msg);
 					model.setUserName(userName);
-					model.setFirstName("n");
 					return model;
 
 				}
@@ -195,24 +179,15 @@ public class EtlkycsimregisterapiLoginController extends Thread {
 
 				model.setResultCode(GlobalParameter.error_non_authoritative_sign);
 				model.setResultMsg(GlobalParameter.error_non_authoritative_msg_sign);
-				model.setExtraPara("n");
-				model.setToken("n");
-				model.setUserID("n");
-				model.setUserName(userName);
-				model.setFirstName("n");
 				return model;
 
 			}
 
 		} catch (NoSuchAlgorithmException e1) {
 			// TODO Auto-generated catch block
-			model.setResultCode(GlobalParameter.error_unavailable);
-			model.setResultMsg(GlobalParameter.error_unavailable_msg);
-			model.setExtraPara("n");
-			model.setToken("n");
-			model.setUserID("n");
-			model.setFirstName("n");
-			model.setUserName(userName);
+			model.setResultCode(GlobalParameter.error_login);
+			model.setResultMsg(GlobalParameter.error_login_msg);
+			
 			return model;
 		}
 

@@ -1,12 +1,6 @@
 package com.etl.kyc.etlkycsimregisterapi.quesry;
 
-import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
-import com.etl.kyc.etlkycsimregisterapi.db.Config;
-import com.etl.kyc.etlkycsimregisterapi.db.DatabaseConnectionPool;
 
 public class QueryMobileStatusModel {
 
