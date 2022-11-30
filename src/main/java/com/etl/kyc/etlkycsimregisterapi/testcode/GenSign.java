@@ -1,6 +1,6 @@
-//package com.etl.kyc.etlkycsimregisterapi.testcode;
+package com.etl.kyc.etlkycsimregisterapi.testcode;//package com.etl.kyc.speingbootsoapclient.testcode;
 //
-//import com.etl.kyc.etlkycsimregisterapi.security.GenerateSignkey_sha256;
+//import com.etl.kyc.speingbootsoapclient.security.GenerateSignkey_sha256;
 //
 //public class GenSign {
 //

@@ -1,4 +1,4 @@
-package com.etl.kyc.etlkycdispayimage;
+package etlkycdispayimage;
 
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

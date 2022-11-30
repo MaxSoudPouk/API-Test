@@ -155,7 +155,15 @@ public class EtlkycChangPasswordController extends Thread {
         GenerateSignkey_sha256 signkey_sha256 = new GenerateSignkey_sha256();
         String des_url = "/etllao.com/v1/changePassword";
 
-        String serverSign = signkey_sha256.generateSignkey_sha256(userName,channel,transactionNo,msisdn,remark,extraParams,uuid,des_url);
+        String serverSign = signkey_sha256.generateSignkey_sha256(
+                userName,
+                channel,
+                transactionNo,
+                msisdn,
+                remark,
+                extraParams,
+                uuid,
+                des_url);
 
        System.out.println("serverSign=" + serverSign);
 
@@ -215,15 +223,18 @@ public class EtlkycChangPasswordController extends Thread {
                             return passwordModel;
                             
 					 }
-					 
-					 
-					 
+
+
+
 					try {
-                       
-						  dbConnectionPool = new DatabaseConnectionPool(Config.driverServr, Config.dburlServr, Config.dbUserNameServr,
-									Config.dbPasswordServr);
+
+						  dbConnectionPool = new DatabaseConnectionPool(
+                                  Config.driverServr,
+                                  Config.dburlServr,
+                                  Config.dbUserNameServr,
+                                  Config.dbPasswordServr);
 							connection1 = dbConnectionPool.getConnection();
-						
+
                                           // System.out.println("Connected");
                                             String sql = "UPDATE tb_user_info SET user_password =? WHERE user_id =? ";
                                             System.out.println("sqlupdate===="+sql);
@@ -246,15 +257,15 @@ public class EtlkycChangPasswordController extends Thread {
 
                                                 return passwordModel;
                                             }else {
-                                            	
+
                                             	 passwordModel.setResultCode(GlobalParameter.fail_change_password);
                                                  passwordModel.setResultMsg(GlobalParameter.fail_change_password_msg);
                                                  passwordModel.setTransactionID(transactionNo);
-                                             
+
                                                  return passwordModel;
                                             }
-                                        
-                     
+
+
                     } catch (Exception e) {
                     	passwordModel.setResultCode(GlobalParameter.error_query_password);
                     	passwordModel.setResultMsg(GlobalParameter.error_query_password_msg);

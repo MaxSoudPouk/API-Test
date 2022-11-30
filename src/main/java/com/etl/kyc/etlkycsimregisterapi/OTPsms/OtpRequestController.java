@@ -17,13 +17,13 @@ import java.util.Random;
 import java.util.TimeZone;
 
 @RestController
-public class OtpResponController extends Thread {
+public class OtpRequestController extends Thread {
 
     public static HttpServletRequest request;
     DatabaseConnectionPool dbConnectionPool;
 
 
-    public OtpResponController() {
+    public OtpRequestController() {
     }
 
     // ----------------------------------------------------------------------
@@ -74,7 +74,9 @@ public class OtpResponController extends Thread {
         Calendar date = Calendar.getInstance();
         long timeInSecs = date.getTimeInMillis();
         Date afterAdding10Mins = new Date(timeInSecs + (2 * 60 * 1000));
-        String expiredate = formatter.format(afterAdding10Mins);
+        SimpleDateFormat formatter1 = new SimpleDateFormat("yyyyMMddHHmmss");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+        String expiredate = formatter1.format(afterAdding10Mins);
 
         System.out.println("Datepro =======================" + datepro);
         System.out.println("After adding 10 mins===========" + expiredate);
@@ -116,8 +118,8 @@ public class OtpResponController extends Thread {
                     model.setResultCode(GlobalParameter.error_ok_success);
                     model.setResultMsg(GlobalParameter.error_ok_success_msg);
                     model.setOtp(OTP);
-                    model.setDateTime(datepro);
                     model.setExpiredate(expiredate);
+                    model.setDateTime(datepro);
 
                     return model;
                 }

@@ -36,7 +36,7 @@ public class EtlkycsimregisterapiLoginController extends Thread {
 //		}
 	}
 
-	private static HttpServletRequest request;
+	public static HttpServletRequest request;
 
 	private void setRequest(HttpServletRequest request) {
 		EtlkycsimregisterapiLoginController.request = request;
@@ -58,7 +58,8 @@ public class EtlkycsimregisterapiLoginController extends Thread {
 	}
 
 	@PostMapping("/v1/loginAccount")
-	public LoginModel login(@RequestParam(defaultValue = "") String sign,
+	public LoginModel login(
+			@RequestParam(defaultValue = "") String sign,
 			@RequestParam(defaultValue = "") String userName, @RequestParam(defaultValue = "") String pssword,
 			@RequestParam(defaultValue = "") String channel, @RequestParam(defaultValue = "") String transactionNo,
 			@RequestParam(defaultValue = "") String remark, @RequestParam(defaultValue = "") String callback,
@@ -72,7 +73,8 @@ public class EtlkycsimregisterapiLoginController extends Thread {
 		LoginModel model = new LoginModel();
 
 		if (userName.equals("") || pssword.equals("") || channel.equals("") || transactionNo.equals("")
-				|| uuid.equals("") || sign.equals("") || longtitude.equals("") || latitude.equals("") || mobileInfo.equals("")) {
+				|| uuid.equals("") || sign.equals("") || longtitude.equals("") || latitude.equals("")
+				|| mobileInfo.equals("")) {
 
 			model.setResultCode(GlobalParameter.error_not_acceptable);
 			model.setResultMsg(GlobalParameter.error_not_acceptable_msg);
@@ -96,8 +98,15 @@ public class EtlkycsimregisterapiLoginController extends Thread {
 
 		GenerateSignkey_sha256 signkey_sha256 = new GenerateSignkey_sha256();
 		String des_url = "/etllao.com/v1/loginAccount";
-		String serverSign = signkey_sha256.generateSignkey_sha256(userName, channel, transactionNo,
-				mobileNumber,	remark, extraParams, uuid, des_url);
+		String serverSign = signkey_sha256.generateSignkey_sha256(
+				userName,
+				channel,
+				transactionNo,
+				mobileNumber,
+				remark,
+				extraParams,
+				uuid,
+				des_url);
 
 		System.out.println("serverSign=" + serverSign);
 

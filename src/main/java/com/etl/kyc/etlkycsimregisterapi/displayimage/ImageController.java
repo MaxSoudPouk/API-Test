@@ -1,4 +1,4 @@
-//package com.etl.kyc.etlkycsimregisterapi.displayimage;
+package com.etl.kyc.etlkycsimregisterapi.displayimage;//package com.etl.kyc.speingbootsoapclient.displayimage;
 //
 //import org.springframework.core.io.ClassPathResource;
 //import org.springframework.core.io.InputStreamResource;
@@ -14,10 +14,10 @@
 //import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.multipart.MultipartFile;
 //
-//import com.etl.kyc.etlkycsimregisterapi.db.Config;
-//import com.etl.kyc.etlkycsimregisterapi.db.DatabaseConnectionPool;
-//import com.etl.kyc.etlkycsimregisterapi.global.GlobalParameter;
-//import com.etl.kyc.etlkycsimregisterapi.simregister.SimregisterModel;
+//import com.etl.kyc.speingbootsoapclient.db.Config;
+//import com.etl.kyc.speingbootsoapclient.db.DatabaseConnectionPool;
+//import com.etl.kyc.speingbootsoapclient.global.GlobalParameter;
+//import com.etl.kyc.speingbootsoapclient.simregister.SimregisterModel;
 //
 //import javax.imageio.ImageIO;
 //import java.awt.image.BufferedImage;

@@ -116,6 +116,10 @@ public class GlobalParameter {
     
     public static String  error_query_password = "219";
     public static String  error_query_password_msg = "Error Change password";
+
+//    OTP expired
+    public static String  error_expired_OTP = "220";
+    public static String  error_expired_OTP_msg = "TOP expired";
     
     public static String  fail_query_status = "1220";
     public static String  fail_query_status_msg = "Number status not correct to new register";

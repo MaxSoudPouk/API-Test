@@ -1,4 +1,4 @@
-package com.etl.kyc.etlkycdispayimage;
+package etlkycdispayimage;
 
 import java.awt.PageAttributes.MediaType;
 import java.io.InputStream;
