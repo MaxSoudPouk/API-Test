@@ -1,18 +1,9 @@
 package com.etl.kyc.etlkycsimregisterapi.quesry;
 
-import java.security.NoSuchAlgorithmException;
+import com.etl.kyc.etlkycsimregisterapi.db.DatabaseConnectionPool;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.Callable;
-
-import com.etl.kyc.etlkycsimregisterapi.SIM_status;
-import com.etl.kyc.etlkycsimregisterapi.db.Config;
-import com.etl.kyc.etlkycsimregisterapi.db.DatabaseConnectionPool;
 
 
 public class Querymobilestatus {

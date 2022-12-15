@@ -3,7 +3,7 @@ package com.etl.kyc.etlkycsimregisterapi.model;
 public class LoginModel {
 
 	public LoginModel() {
-		// TODO: Auto-generated constructor stub
+		// TODO Auto-generated constructor stub
 	}
 	
 	

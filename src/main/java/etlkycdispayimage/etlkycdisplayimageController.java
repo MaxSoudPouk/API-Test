@@ -22,9 +22,9 @@ import io.jsonwebtoken.io.IOException;
 @RestController
 public class etlkycdisplayimageController extends Thread {
 public etlkycdisplayimageController() {
-		
+
 		//System.out.println("displayimage");
-		
+
 	}
 
 //@GetMapping(value = "/image")
@@ -45,5 +45,5 @@ public etlkycdisplayimageController() {
 //      .contentType(contentType)
 //      .body(new InputStreamResource(in));
 //}
-//    
+//
 }

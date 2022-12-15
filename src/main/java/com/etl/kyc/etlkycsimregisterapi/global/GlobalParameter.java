@@ -1,24 +1,20 @@
-  package com.etl.kyc.etlkycsimregisterapi.global;
+package com.etl.kyc.etlkycsimregisterapi.global;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 
 public class GlobalParameter {
-    
+
 
     public static HashMap<String, String> hMapTransaction = new HashMap<String, String>();
-   
-    
-    
+
+
     public static HashMap<String, String> hMapOTP_store = new HashMap<String, String>();
-    
-  //hMapLoginFailSession   mobile number = countFailLastFail|date time new allow
-    
-    
-    
+
+    //hMapLoginFailSession   mobile number = countFailLastFail|date time new allow
+
+
     public static String lotto_patch_cancel_bill = "/home/kycimages/";
-   
-    
+
 
     public static boolean flageProcessState = true;
     public static boolean flageProcessInsertLoginHistoryState = true;
@@ -27,102 +23,108 @@ public class GlobalParameter {
     public static String homePatchLogPatchLogCDRQuery;
     public static String homePatchLogSQLfail;
     public static String homePatchLogProcessDerail;
-    
-    public static String jwt_sec_key ="9c5f1181fd9341ea08885dd5574be63a51545342e69b6e561301c2858d1abb03";
-    public static String sign_key ="36b128b5dada223c04779bd27687b3c17b375a5d19a2ee735507922af63bcaad";
-  
-    
-    
+
+    public static String jwt_sec_key = "9c5f1181fd9341ea08885dd5574be63a51545342e69b6e561301c2858d1abb03";
+    public static String sign_key = "36b128b5dada223c04779bd27687b3c17b375a5d19a2ee735507922af63bcaad";
+
+
     ///===================================================================================
-    public static String  error_continues =  "100";
-    public static String  error_continues_msg =  "Continue";
-    
-    public static String  error_switching_protocols =  "101";
-    public static String  error_switching_protocols_msg =  "Switching Protocols";
-    
-    public static String  error_processing =  "102";
-    public static String  error_processings_msg =  "Processing (WebDAV; RFC 2518)";
-    
-    public static String  error_early_hints ="103";
-    public static String  error_early_hints_msg =  "Early Hints";
-    
-    public static String  error_ok_success ="200";
-    public static String  error_ok_success_msg =  "OK, success";
-    
-    public static String  error_created = "201";
-    public static String  error_created_msg = "Created";
-    
+    public static String error_continues = "100";
+    public static String error_continues_msg = "Continue";
+
+    public static String error_switching_protocols = "101";
+    public static String error_switching_protocols_msg = "Switching Protocols";
+
+    public static String error_processing = "102";
+    public static String error_processings_msg = "Processing (WebDAV; RFC 2518)";
+
+    public static String error_early_hints = "103";
+    public static String error_early_hints_msg = "Early Hints";
+
+    public static String error_ok_success = "200";
+    public static String error_ok_success_msg = "OK, success";
+
+    public static String error_created = "201";
+    public static String error_created_msg = "Created";
+
     public static String error_accepted = "202";
     public static String error_accepted_msg = "Accepted";
-    
-    public static String  error_non_authoritative = "203";
-    public static String  error_non_authoritative_msg = "Non-Authoritative Information ";
-    
-    public static String  error_non_authoritative_sign = "2033";
-    public static String  error_non_authoritative_msg_sign = "Non-Authoritative, invalid sign";
-    
-    
-    public static String  error_non_authoritative_sign_wrong_lengt = "2034";
-    public static String  error_non_authoritative_sign_wrong_lengt_msg = "Non-Authoritative, invalid sign lenth";
 
-    public static String  error_no_content = "203";
-    public static String  error_no_content_msg = "No Content";
-    
-    
-    public static String  error_reset_content = "205";
-    public static String  error_reset_content_msg = "Reset Content";
+    public static String error_non_authoritative = "203";
+    public static String error_non_authoritative_msg = "Non-Authoritative Information ";
 
-    public static String  error_partial_content = "206";
-    public static String  error_partial_content_msg = "Partial Content";
-    
-    public static String  error_multi_status = "207";
-    public static String  error_multi_status_msg = "Multi-Status";
-    
-    public static String  error_already_reported = "208";
-    public static String  error_already_reported_msg = "Already Reported";
-    
-    public static String  error_oldpassword = "209";
-    public static String  error_oldpassword_msg = "New password and old password the same";
-    
-    public static String  fail_change_password = "209";
-    public static String  fail_change_password_msg = "Fail, Change password not success";
-    
-    public static String  error_upload_image = "210";
-    public static String  error_upload_image_msg = "Can not Upload image";
- 
-    public static String  error_token = "211";
-    public static String  error_token_msg = "Token key not correct";
-    
-    public static String  error_sign = "212";
-    public static String  error_sign_msg = "Sign not correct";
-    
-    public static String  error_insert_sim_register = "213";
-    public static String  error_insert_sim_register_smg = "Insert SIM register fail";
-    
-    public static String  error_datetime_format = "214";
-    public static String  error_datetime_format_smg = "Format Datetime not correct";
-    
-    public static String  error_nodata = "215";
-    public static String  error_nodata_msg = "msisdn not found";
-    
-    public static String  error_querymobile_status = "216";
-    public static String  error_querymobile_status_msg = "Error query Mobile status";
-    
-    public static String  fail_login_notsuccess = "217";
-    public static String  fail_login_notsuccess_msg = "Fail, Login not Success";
-    
-    public static String  error_login = "218";
-    public static String  error_login_msg = "Error Login";
-    
-    public static String  error_query_password = "219";
-    public static String  error_query_password_msg = "Error Change password";
+    public static String error_non_authoritative_sign = "2033";
+    public static String error_non_authoritative_msg_sign = "Non-Authoritative, invalid sign";
 
-//    OTP expired
-    public static String  error_expired_OTP = "220";
-    public static String  error_expired_OTP_msg = "TOP expired";
+
+    public static String error_non_authoritative_sign_wrong_lengt = "2034";
+    public static String error_non_authoritative_sign_wrong_lengt_msg = "Non-Authoritative, invalid sign lenth";
+
+    public static String error_no_content = "203";
+    public static String error_no_content_msg = "No Content";
+
+
+    public static String error_reset_content = "205";
+    public static String error_reset_content_msg = "Reset Content";
+
+    public static String error_partial_content = "206";
+    public static String error_partial_content_msg = "Partial Content";
+
+    public static String error_multi_status = "207";
+    public static String error_multi_status_msg = "Multi-Status";
+
+    public static String error_already_reported = "208";
+    public static String error_already_reported_msg = "Already Reported";
+
+    public static String error_oldpassword = "209";
+    public static String error_oldpassword_msg = "New password and old password the same";
+
+    public static String fail_change_password = "209";
+    public static String fail_change_password_msg = "Fail, Change password not success";
+
+    public static String error_upload_image = "210";
+    public static String error_upload_image_msg = "Can not Upload image";
+
+    public static String error_token = "211";
+    public static String error_token_msg = "Token key not correct";
+
+    public static String error_sign = "212";
+    public static String error_sign_msg = "Sign not correct";
+
+    public static String error_insert_sim_register = "213";
+    public static String error_insert_sim_register_smg = "Insert SIM register fail";
+
+    public static String error_datetime_format = "214";
+    public static String error_datetime_format_smg = "Format Datetime not correct";
+
+    public static String error_nodata = "215";
+    public static String error_nodata_msg = "msisdn not found";
+
+    public static String error_querymobile_status = "216";
+    public static String error_querymobile_status_msg = "Error query Mobile status";
+
+    public static String fail_login_notsuccess = "217";
+    public static String fail_login_notsuccess_msg = "Fail, Login not Success";
+
+    public static String error_login = "218";
+    public static String error_login_msg = "Error Login";
+
+    public static String error_query_password = "219";
+    public static String error_query_password_msg = "Error Change password";
+
+    public static String error_expired_OTP = "220";
+    public static String error_expired_OTP_msg = "Your OTP Time expired";
+
+    public static String fail_OTP_Notconfirm = "221";
+    public static String fail_OTP_Notconfirm_msg = "Fail, OTP not success";
+
+    public static String fail_SOAP_Config = "222";
+    public static String fail_SOAP_Config_msg = "Fail, SOAP Config";
+    public static String fail_query_status = "1220";
+    public static String fail_query_status_msg = "Number status not correct to new register";
     
-    public static String  fail_query_status = "1220";
-    public static String  fail_query_status_msg = "Number status not correct to new register";
+    public static String fail_requestotp_status = "1221";
+    public static String fail_requestotp_status_msg = "Your OTP code not correct";
 
 //    226 IM Used (RFC 3229)
 //    3xx redirection
@@ -146,11 +148,11 @@ public class GlobalParameter {
 //    404 Not Found
 //    405 Method Not Allowed
 //    406 Not Acceptable
-    
-    
-    public static String  error_not_acceptable = "406";
-    public static String  error_not_acceptable_msg = "parameter not acceptable";
-    
+
+
+    public static String error_not_acceptable = "406";
+    public static String error_not_acceptable_msg = "parameter not acceptable";
+
 //    407 Proxy Authentication Required (RFC 7235)
 //    408 Request Timeout
 //    409 Conflict
@@ -174,10 +176,10 @@ public class GlobalParameter {
 //    428 Precondition Required (RFC 6585)
 //    429 Too Many Requests (RFC 6585)
 //    431 Request Header Fields Too Large (RFC 6585)
-    
-    public static String  error_unavailable = "451";
-    public static String  error_unavailable_msg = "Unavailable For Legal Reasonsd";
-//
+
+    public static String error_unavailable = "451";
+    public static String error_unavailable_msg = "Unavailable For Legal Reasonsd";
+    //
 //    451 Unavailable For Legal Reasons (RFC 7725)
 //
 //    500 Internal Server Error
@@ -198,10 +200,10 @@ public class GlobalParameter {
 //    430 Request Header Fields Too Large (Shopify)
 //    450 Blocked by Windows Parental Controls (Microsoft)
 //    498 Invalid Token (Esri)
-    public static String  error_invalidtoken = "498";
-    public static String  error_invalidtoken_msg = "Invalid Token";
+    public static String error_invalidtoken = "498";
+    public static String error_invalidtoken_msg = "Invalid Token";
 //    499 Token Required (Esri)
-    
+
 //    509 Bandwidth Limit Exceeded (Apache Web Server/cPanel)
 //    529 Site is overloaded
 //    530 Site is frozen
@@ -229,12 +231,11 @@ public class GlobalParameter {
 //    110 Response is Stale
 //    111 Revalidation Failed
 //    112 Disconnected Operation
-    
-    
-    
+
+
 //    113 Heuristic Expiration
 //    199 Miscellaneous Warning
 //    214 Transformation Applied
 //    299 Miscellaneous Persistent Warning
-  
+
 }

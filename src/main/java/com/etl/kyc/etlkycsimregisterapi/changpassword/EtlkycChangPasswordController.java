@@ -6,20 +6,17 @@ import com.etl.kyc.etlkycsimregisterapi.global.GlobalParameter;
 import com.etl.kyc.etlkycsimregisterapi.security.GenerateSignkey_sha256;
 import com.etl.kyc.etlkycsimregisterapi.security.JWT_Security_Encode_Decode_Java;
 import com.etl.kyc.etlkycsimregisterapi.security.sha256encrypt;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.datetime.standard.DateTimeContext;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -83,25 +80,25 @@ public class EtlkycChangPasswordController extends Thread {
             @RequestParam(defaultValue = "") String token,
             @RequestParam(defaultValue = "") String remark,
             @RequestParam(defaultValue = "") String userid
-           // @RequestParam(defaultValue = "") String datetime
-           // @RequestParam(defaultValue = "#{T(java.time.LocalDate).now()}", required = true) LocalDate datetime
-           // @RequestParam(value = "datetime", required = true ) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")  Date datetime
-           // @RequestParam(name = "d", defaultValue = "#{T(java.time.LocalDate).now()}", required = true) LocalDate d)
+            // @RequestParam(defaultValue = "") String datetime
+            // @RequestParam(defaultValue = "#{T(java.time.LocalDate).now()}", required = true) LocalDate datetime
+            // @RequestParam(value = "datetime", required = true ) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")  Date datetime
+            // @RequestParam(name = "d", defaultValue = "#{T(java.time.LocalDate).now()}", required = true) LocalDate d)
     ) {
 
 
         ChangePasswordModel passwordModel = new ChangePasswordModel();
-        
+
         Calendar currentDate111 = Calendar.getInstance();
-		SimpleDateFormat formatter111 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		formatter111.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
-		String dateNow111 = formatter111.format(currentDate111.getTime());
-		String datepro111 = dateNow111.toString();
-		
-		//=================================
-		//LocalDateTime 
-		// Calendar currentDate111 = Calendar.getInstance();
-		//datetime dtinput = new datetime();
+        SimpleDateFormat formatter111 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        formatter111.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+        String dateNow111 = formatter111.format(currentDate111.getTime());
+        String datepro111 = dateNow111.toString();
+
+        //=================================
+        //LocalDateTime
+        // Calendar currentDate111 = Calendar.getInstance();
+        //datetime dtinput = new datetime();
 //			SimpleDateFormat inputformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //			inputformat.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
 //			String inputdate = inputformat.format(datetime);
@@ -110,17 +107,17 @@ public class EtlkycChangPasswordController extends Thread {
 //			DateTimeFormatter f = DateTimeFormatter.ofPattern( "dd/MM/uuuu" ) ;
 //			f.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
 //			LocalDateTime ldt = LocalDateTime.parse( input , f ) ;
-		
-		// DateTimeFormatter f = DateTimeFormatter.ofPattern( "yyyy-MM-dd HH:mm:ss");
-		// f.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
-		// LocalDateTime dtinput = LocalDateTime.parse( datetime , f ) ;
-		
-        
-      //  System.out.println("datepro111=====" + datepro111);
-        
-     // System.out.println("datefff1=====" + datefff1);
-        
-        
+
+        // DateTimeFormatter f = DateTimeFormatter.ofPattern( "yyyy-MM-dd HH:mm:ss");
+        // f.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
+        // LocalDateTime dtinput = LocalDateTime.parse( datetime , f ) ;
+
+
+        //  System.out.println("datepro111=====" + datepro111);
+
+        // System.out.println("datefff1=====" + datefff1);
+
+
 //		if(getinput_date!=datepro111) {
 //			  passwordModel.setResultCode(GlobalParameter.error_datetime_format);
 //	          passwordModel.setResultMsg(GlobalParameter.error_datetime_format_smg);
@@ -133,7 +130,7 @@ public class EtlkycChangPasswordController extends Thread {
                 || sign.equals("") || longtitude.equals("") || latitude.equals("")
                 || newpassowrd.equals("") || oldpassword.equals("")) {
 
-           // System.out.println("token=" + token);
+            // System.out.println("token=" + token);
 
             passwordModel.setResultCode(GlobalParameter.error_not_acceptable);
             passwordModel.setResultMsg(GlobalParameter.error_not_acceptable_msg);
@@ -144,7 +141,7 @@ public class EtlkycChangPasswordController extends Thread {
 
         if (sign.length() != 64) {
 
-           
+
             passwordModel.setResultCode(GlobalParameter.error_non_authoritative_sign_wrong_lengt);
             passwordModel.setResultMsg(GlobalParameter.error_non_authoritative_sign_wrong_lengt_msg);
             passwordModel.setTransactionID(transactionNo);
@@ -155,122 +152,131 @@ public class EtlkycChangPasswordController extends Thread {
         GenerateSignkey_sha256 signkey_sha256 = new GenerateSignkey_sha256();
         String des_url = "/etllao.com/v1/changePassword";
 
-        String serverSign = signkey_sha256.generateSignkey_sha256(
-                userName,
-                channel,
-                transactionNo,
-                msisdn,
-                remark,
-                extraParams,
-                uuid,
-                des_url);
+        String serverSign = signkey_sha256.generateSignkey_sha256(userName, channel, transactionNo, msisdn, remark, extraParams, uuid, des_url);
 
-       System.out.println("serverSign=" + serverSign);
+        System.out.println("serverSign=" + serverSign);
 
 
         try {
             if (serverSign.equals(sign.trim())) {
 
                 sha256encrypt kSha256encrypt = new sha256encrypt();
-                String passwordEncr;
+                String passwordEncrNewPassword;
                 String passwordEncrOldPassword;
-                passwordEncr = kSha256encrypt.getSha256encrypt(userName+newpassowrd);
-                passwordEncrOldPassword = kSha256encrypt.getSha256encrypt(userName+oldpassword);
-                
-               // System.out.println("passwordEncrOldPassword=======" +passwordEncrOldPassword);
-               // System.out.println("userid=======" +userid);
-               // System.out.println("userName=======" +userName);
+
+                passwordEncrNewPassword = kSha256encrypt.getSha256encrypt( userName + newpassowrd);
+                passwordEncrOldPassword = kSha256encrypt.getSha256encrypt(userName + oldpassword);
+
+                // System.out.println("passwordEncrOldPassword=======" +passwordEncrOldPassword);
+                // System.out.println("userid=======" +userid);
+                // System.out.println("userName=======" +userName);
                 boolean jwtencoderesult = false;
 
                 JWT_Security_Encode_Decode_Java encode_Decode_Java = new JWT_Security_Encode_Decode_Java();
                 jwtencoderesult = encode_Decode_Java.deCodeJWT_validate(token, userid, userName);
 
 
-            //    System.out.println(userid);
-             //   System.out.println("##### /v1/jwtencoderesult=" + jwtencoderesult);
+                //    System.out.println(userid);
+                //   System.out.println("##### /v1/jwtencoderesult=" + jwtencoderesult);
 //============================================================================================
                 if (jwtencoderesult) {
 
-                	PreparedStatement pstmt;
-					ResultSet rs;
-					DatabaseConnectionPool dbConnectionPool = null;
-					Connection connection1 = null;
-					String strRetunr = null;
-					Statement statementtAuth = null;
-					ResultSet resultSettAuth = null;
-					Connection conntAuth = null;
-					String user_password= null;
-//                    String sqlpassword = "SELECT user_password from tb_user_info where user_id = '"
-//                            + userid + "'  LIMIT 1";
+                    PreparedStatement pstmt;
+                    ResultSet rs;
+                    DatabaseConnectionPool dbConnectionPool = null;
+                    Connection connection1 = null;
+                    String strRetunr = null;
+                    Statement statementtAuth = null;
+                    ResultSet resultSettAuth = null;
+                    Connection conntAuth = null;
+                    String user_password = null;
+
+//                   String sqlpassword = "SELECT user_password from tb_user_info where user_id = '"
+//                           + userid + "'  LIMIT 1";
+//                   try {
+//                    
+//                      dbConnectionPool = new DatabaseConnectionPool(Config.driverServr, Config.dburlServr, Config.dbUserNameServr,
+//							Config.dbPasswordServr);
+//					connection1 = dbConnectionPool.getConnection();
+//					pstmt = connection1.prepareStatement(sqlpassword);
+//					rs = (ResultSet) pstmt.executeQuery();
 //
-//                    try {
+//                      if (rs != null && rs.next()) {
+//                          user_password = rs.getString("user_password");
+//                      }
 //                      
-//                        dbConnectionPool = new DatabaseConnectionPool(Config.driverServr, Config.dburlServr, Config.dbUserNameServr,
-//								Config.dbPasswordServr);
-//						connection1 = dbConnectionPool.getConnection();
-//						pstmt = connection1.prepareStatement(sqlpassword);
-//						rs = (ResultSet) pstmt.executeQuery();
+//                   } catch (Exception e) {
+//                   	passwordModel.setResultCode(GlobalParameter.error_query_password);
+//                   	passwordModel.setResultMsg(GlobalParameter.error_query_password_msg);
+//                   	 passwordModel.setTransactionID(transactionNo);
+//                   	return passwordModel;
 //
-//                        if (rs != null && rs.next()) {
-//                            user_password = rs.getString("user_password");
-//                        }
-                        
-					
-					 if (oldpassword.equals(newpassowrd)) {
-                           passwordModel.setResultCode(GlobalParameter.error_oldpassword);
-                           passwordModel.setResultMsg(GlobalParameter.error_oldpassword_msg);
-                           passwordModel.setTransactionID(transactionNo);
+//                   }
+//                      
+
+
+                    //====================================================================
+                    if (oldpassword.equals(newpassowrd)) {
+                        passwordModel.setResultCode(GlobalParameter.error_oldpassword);
+                        passwordModel.setResultMsg(GlobalParameter.error_oldpassword_msg);
+                        passwordModel.setTransactionID(transactionNo);
+                        return passwordModel;
+
+                    }
+
+//                    genshar256 gensha256 = new genshar256();
+//                    String olpp = userName + oldpassword;
+//                    String passwordEncr1 = userName + newpassowrd;
+//
+//                    String Newpasswordfromgent = gensha256.getSHA256Hash256(passwordEncr1);
+//                    String Oldpasswordfromgent = gensha256.getSHA256Hash256(olpp);
+//
+//                    System.out.println("Oldpasswordfromgent = " + Newpasswordfromgent);
+//                    System.out.println("Oldpasswordfromgent = " + Oldpasswordfromgent);
+
+                    try {
+
+                        dbConnectionPool = new DatabaseConnectionPool(Config.driverServr, Config.dburlServr, Config.dbUserNameServr,
+                                Config.dbPasswordServr);
+                        connection1 = dbConnectionPool.getConnection();
+
+                        // System.out.println("Connected");
+                        String sql = "UPDATE tb_user_info SET user_password =? WHERE user_id =? and user_password=? ";
+                        // System.out.println("sqlupdate===="+sql);
+                        PreparedStatement statement = connection1.prepareStatement(sql);
+
+                        statement.setString(1, passwordEncrNewPassword);
+                        statement.setString(2, userid);
+                        statement.setString(3, passwordEncrOldPassword);
+                        int rowsUpdated = statement.executeUpdate();
+                        System.out.println("statement====" + statement);
+
+                        if (rowsUpdated > 0) {
+
+                            //  System.out.println("An existing user was updated successfully!");
+
+
+                            passwordModel.setResultCode(GlobalParameter.error_ok_success);
+                            passwordModel.setResultMsg(GlobalParameter.error_ok_success_msg);
+                            passwordModel.setTransactionID(transactionNo);
+                            passwordModel.setExtraPara(extraParams);
+
                             return passwordModel;
-                            
-					 }
+                        } else {
 
+                            passwordModel.setResultCode(GlobalParameter.fail_change_password);
+                            passwordModel.setResultMsg(GlobalParameter.fail_change_password_msg);
+                            passwordModel.setTransactionID(transactionNo);
 
-
-					try {
-
-						  dbConnectionPool = new DatabaseConnectionPool(
-                                  Config.driverServr,
-                                  Config.dburlServr,
-                                  Config.dbUserNameServr,
-                                  Config.dbPasswordServr);
-							connection1 = dbConnectionPool.getConnection();
-
-                                          // System.out.println("Connected");
-                                            String sql = "UPDATE tb_user_info SET user_password =? WHERE user_id =? ";
-                                            System.out.println("sqlupdate===="+sql);
-                                            PreparedStatement statement = connection1.prepareStatement(sql);
-                                            System.out.println("statement===="+statement);
-                                            statement.setString(1, passwordEncr);
-                                            statement.setString(2, userid);
-                                           // statement.setString(3, oldpassword);
-
-                                            int rowsUpdated = statement.executeUpdate();
-                                            if (rowsUpdated > 0) {
-
-                                              //  System.out.println("An existing user was updated successfully!");
-                                               // System.out.println(newpassowrd);
-
-                                                passwordModel.setResultCode(GlobalParameter.error_ok_success);
-                                                passwordModel.setResultMsg(GlobalParameter.error_ok_success_msg);
-                                                passwordModel.setTransactionID(transactionNo);
-                                                passwordModel.setExtraPara(extraParams);
-
-                                                return passwordModel;
-                                            }else {
-
-                                            	 passwordModel.setResultCode(GlobalParameter.fail_change_password);
-                                                 passwordModel.setResultMsg(GlobalParameter.fail_change_password_msg);
-                                                 passwordModel.setTransactionID(transactionNo);
-
-                                                 return passwordModel;
-                                            }
+                            return passwordModel;
+                        }
 
 
                     } catch (Exception e) {
-                    	passwordModel.setResultCode(GlobalParameter.error_query_password);
-                    	passwordModel.setResultMsg(GlobalParameter.error_query_password_msg);
-                    	 passwordModel.setTransactionID(transactionNo);
-                    	return passwordModel;
+                        passwordModel.setResultCode(GlobalParameter.error_query_password);
+                        passwordModel.setResultMsg(GlobalParameter.error_query_password_msg);
+                        passwordModel.setTransactionID(transactionNo);
+                        return passwordModel;
 
                     }
 //=======================================================================================================
@@ -301,6 +307,6 @@ public class EtlkycChangPasswordController extends Thread {
 
             return passwordModel;
         }
-       
+
     }
 }

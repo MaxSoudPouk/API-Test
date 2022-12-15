@@ -1,18 +1,10 @@
 package com.etl.kyc.etlkycsimregisterapi.testcode;
 
-import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
-import com.etl.kyc.etlkycsimregisterapi.db.AuthenETLConfigUser;
-import com.etl.kyc.etlkycsimregisterapi.security.sha256encrypt;
-
 public class TestAuthen {
 
-	public TestAuthen() {
-		// TODO Auto-generated constructor stub
-	}
+    public TestAuthen() {
+        // TODO Auto-generated constructor stub
+    }
 
 //	public static void main(String[] args) {
 //		// TODO Auto-generated method stub

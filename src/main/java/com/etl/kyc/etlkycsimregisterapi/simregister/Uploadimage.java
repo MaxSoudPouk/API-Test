@@ -1,12 +1,13 @@
 package com.etl.kyc.etlkycsimregisterapi.simregister;
 
+import io.jsonwebtoken.io.IOException;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import org.springframework.web.multipart.MultipartFile;
-import io.jsonwebtoken.io.IOException;
 
 public class Uploadimage {
 //	DateTimeFormatter weekFormatter = DateTimeFormatter.ofPattern("WWYYYY");
@@ -59,7 +60,8 @@ public class Uploadimage {
 	    }
 	 
 	 //==============================
-	 public boolean image_sim(String UPLOAD_DIRECTORY, String fileName, MultipartFile img_sim) throws IOException, java.io.IOException {
+	 public boolean image_sim(String UPLOAD_DIRECTORY, String fileName,
+							  MultipartFile img_sim) throws IOException, java.io.IOException {
 	        Path uploadPath = Paths.get(UPLOAD_DIRECTORY);
 	         
 	        if (!Files.exists(uploadPath)) {
@@ -78,6 +80,33 @@ public class Uploadimage {
 	        }
 		    
 	    }
+
+	//==============================
+
+
+	public boolean img_org_register(String UPLOAD_DIRECTORY, String fileName,
+									MultipartFile img_org_register) throws IOException, java.io.IOException {
+
+		System.out.println(" UPLOAD_DIRECTORY========: " + UPLOAD_DIRECTORY);
+
+
+		Path uploadPath = Paths.get(UPLOAD_DIRECTORY);
+		if (!Files.exists(uploadPath)) {
+			Files.createDirectories(uploadPath);
+		}
+
+		try (InputStream inputStream = img_org_register.getInputStream()) {
+			Path filePath = uploadPath.resolve(fileName);
+			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+
+
+			return true;
+
+		} catch (IOException | java.io.IOException ioe) {
+			return false;
+			// throw new IOException("Could not save image file: " + fileName, ioe);
+		}
+	}
 	
 	 
 //	 public void saveImage(MultipartFile imageFile, String fileName) throws IOException {

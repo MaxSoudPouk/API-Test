@@ -1,31 +1,15 @@
 package com.etl.kyc.etlkycsimregisterapi.security;
 
-import java.security.Key;
-import java.util.Date;
-
-//You have the wrong import for SignatureAlgorithm.
-
-//
-//Try this:
-//
-//import io.jsonwebtoken.SignatureAlgorithm;
-//
-//Instead of:
-//
-//import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
-
-import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
-
 import com.etl.kyc.etlkycsimregisterapi.global.GlobalParameter;
-
-//https://stormpath.com/blog/jwt-java-create-verify#to-sum-it-up
-
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.security.Key;
+import java.util.Date;
 
 //Sample method to construct a JWT
 
@@ -44,6 +28,120 @@ public class JWT_Security_Encode_Decode_Java extends Thread {
 //	}
 //    
 
+	//======================================================================================================
+	public String createJWTSec1(String id, long ttlMillis, String userName, String msisdn) {
+
+
+
+		// The JWT signature algorithm we will be using to sign the token
+		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+
+		long nowMillis = System.currentTimeMillis();
+		Date now = new Date(nowMillis);
+
+		// We will sign our JWT with our ApiKey secret
+		byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(GlobalParameter.sign_key);
+
+		Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
+		// Let's set the JWT Claims
+//	JwtBuilder builder = Jwts.builder().setId(id).setIssuedAt(now).setSubject(msisdn).setIssuer(issuer)
+//		.setId(sessionID).signWith(signatureAlgorithm, signingKey);
+
+		//Let's set the JWT Claims
+		JwtBuilder   builder = Jwts.builder().setId(id)
+				.setIssuedAt(now)
+				.setSubject(userName) // User Namw
+				.setIssuer(msisdn)  // User ID
+				.signWith(signingKey, signatureAlgorithm);
+
+		// if it has been specified, let's add the expiration
+		if (ttlMillis >= 0) {
+			long expMillis = nowMillis + ttlMillis;
+			Date exp = new Date(expMillis);
+			builder.setExpiration(exp);
+		}
+
+		// Builds the JWT and serializes it to a compact, URL-safe string
+		return builder.compact();
+	}
+
+	public boolean deCodeJWT_validate1(String jwt, String userName, String msisdn) {
+		try {
+//			 System.out.println(" jwtgetuserName  ========:: " + userName);
+//			 System.out.println(" jwtgetmsisdn    ========:: " + msisdn);
+
+
+			// This line will throw an exception if it is not a signed JWS (as expected)
+			Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(GlobalParameter.sign_key)).parseClaimsJws(jwt)
+					.getBody();
+
+//			System.out.println("claims  ========:: " + claims);
+//
+//			  System.out.println("jwtuserID========:: " + msisdn);
+
+
+// System.out.println(" GlobalParameter.sign_key========:: " + GlobalParameter.sign_key);
+//		Claims claims = (Claims) Jwts.parserBuilder()
+//			         .requireAudience(GlobalParameter.sign_key)
+//			         .build()
+//			         .parse(jwt);
+
+
+			String getPhoneNumber = claims.getSubject();
+			String getuserName = claims.getIssuer();
+
+//			System.out.println("getPhoneNumber  ========:: " + getPhoneNumber);
+//			System.out.println("getuserName  ========:: " + getuserName);
+
+			// System.out.println(" jwtgetUserName11111========:: " + getuserName);
+			// System.out.println(" jwtgetUserID1111111========:: " + getPhoneNumber);
+
+//	    String isSessionIDJWT = "";
+//
+//	    try {
+//		isSessionIDJWT = claims.getId();
+//	    } catch (Exception e) {
+//		return false;
+//	    }
+
+			// Get sessionProfile from hash table;.
+//	    String localSessionID = "";
+//	    try {
+//		String sessionStrLocal = GlobalParameter.hMapProfile.get(msisdn.trim());
+//
+//		String[] parts = sessionStrLocal.split("\\|");
+//
+//		localSessionID = parts[3].trim();
+//
+//	    } catch (Exception e) {
+//		return false;
+//	    }
+
+			// System.out.println("getMsisdn: " + claims.getSubject());
+			// System.out.println("msisdn: " + msisdn);
+
+			if (getPhoneNumber.equals(userName) && getuserName.equals(getuserName)) {
+				// if(getMsisdn.equals(msisdn) && localSessionID.equals(isSessionIDJWT) ) {
+				return true;
+			} else {
+
+				return false;
+			}
+
+			// System.out.println("ID: " + claims.getId());
+			// System.out.println("Subject: " + claims.getSubject());
+			// System.out.println("Issuer: " + claims.getIssuer());
+			// System.out.println("Expiration: " + claims.getExpiration());
+
+		} catch (Exception e) {
+			// System.out.println(" Exception========:: " + e.getMessage());
+
+			return false;
+		}
+	}
+
+	//======================================================================================================
     // Sample method to construct a JWT
     public String createJWTSec(String id, long ttlMillis, String userName, String userID) {
     	
