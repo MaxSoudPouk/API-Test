@@ -57,21 +57,32 @@ public class EtlkycSimregisterController extends Thread {
 	}
 
 	@PostMapping("/v1/simregister")
-	public SimregisterModel Simregister(@RequestParam(defaultValue = "") String sign,
-			@RequestParam(defaultValue = "") String userName, @RequestParam(defaultValue = "") String extraParams,
-			@RequestParam(defaultValue = "") String channel, @RequestParam(defaultValue = "") String transactionNo,
-			@RequestParam(defaultValue = "") String uuid, @RequestParam(defaultValue = "") String latitude,
-			@RequestParam(defaultValue = "") String longtitude, @RequestParam(defaultValue = "") String token,
-			@RequestParam(defaultValue = "") String msisdn, @RequestParam(defaultValue = "") String userid,
-			@RequestParam(defaultValue = "") String fname, @RequestParam(defaultValue = "") String lname,
-			@RequestParam(defaultValue = "") int gender_id, @RequestParam(defaultValue = "") String birthday,
-			@RequestParam(defaultValue = "") int document_id, @RequestParam(defaultValue = "") String occupation,
+	public SimregisterModel Simregister(
+			@RequestParam(defaultValue = "") String sign,
+			@RequestParam(defaultValue = "") String userName,
+			@RequestParam(defaultValue = "") String extraParams,
+			@RequestParam(defaultValue = "") String channel,
+			@RequestParam(defaultValue = "") String transactionNo,
+			@RequestParam(defaultValue = "") String uuid,
+			@RequestParam(defaultValue = "") String latitude,
+			@RequestParam(defaultValue = "") String longtitude,
+			@RequestParam(defaultValue = "") String token,
+			@RequestParam(defaultValue = "") String msisdn,
+			@RequestParam(defaultValue = "") String userid,
+			@RequestParam(defaultValue = "") String fname,
+			@RequestParam(defaultValue = "") String lname,
+			@RequestParam(defaultValue = "") int gender_id,
+			@RequestParam(defaultValue = "") String birthday,
+			@RequestParam(defaultValue = "") int document_id,
+			@RequestParam(defaultValue = "") String occupation,
 			@RequestParam(defaultValue = "") int simtype_id,
 			// @RequestParam(defaultValue = "") int province_id,
 			// @RequestParam(defaultValue = "") int district_id,
 			// @RequestParam(defaultValue = "") int village_id,
-			@RequestParam(defaultValue = "") String address_reg, @RequestParam(defaultValue = "") String devicename,
-			@RequestParam(defaultValue = "") String osversion, @RequestParam(defaultValue = "") String remark,
+			@RequestParam(defaultValue = "") String address_reg,
+			@RequestParam(defaultValue = "") String devicename,
+			@RequestParam(defaultValue = "") String osversion,
+			@RequestParam(defaultValue = "") String remark,
 			@RequestParam(defaultValue = "") MultipartFile img_person,
 			@RequestParam(defaultValue = "") MultipartFile img_doc,
 			@RequestParam(defaultValue = "") MultipartFile img_sim
@@ -82,15 +93,26 @@ public class EtlkycSimregisterController extends Thread {
 
 		SimregisterModel simregismodel = new SimregisterModel();
 
-		if (channel.equals("") || transactionNo.equals("") || token.equals("") || userid.equals("") || sign.equals("")
-				|| longtitude.equals("") || latitude.equals("") || fname.equals("") || lname.equals("")
-				|| msisdn.equals("") ||
+		if (channel.equals("")
+				|| transactionNo.equals("")
+				|| token.equals("")
+				|| userid.equals("")
+				|| sign.equals("")
+				|| longtitude.equals("")
+				|| latitude.equals("")
+				|| fname.equals("")
+				|| lname.equals("")
+				|| msisdn.equals("")
+				|| occupation.equals("")
 				// gender_id<'0'|| birthday.equals("")||
 				// document_id<'0'||
-				occupation.equals("") ||
 				// simtype_id<'0' ||province_id<'0' ||
-				address_reg.equals("") || devicename.equals("") || osversion.equals("") || img_person.isEmpty()
-				|| img_doc.isEmpty() || img_sim.isEmpty()) {
+				|| address_reg.equals("")
+				|| devicename.equals("")
+				|| osversion.equals("")
+				|| img_person.isEmpty()
+				|| img_doc.isEmpty()
+				|| img_sim.isEmpty()) {
 
 			// System.out.println("token=" + token);
 			simregismodel.setResultCode(GlobalParameter.error_no_content);
