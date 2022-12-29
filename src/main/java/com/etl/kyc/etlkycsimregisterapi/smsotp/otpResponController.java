@@ -17,14 +17,14 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 @RestController
-public class OtpResponController extends Thread {
+public class otpResponController extends Thread {
 
 
     public static HttpServletRequest request;
     DatabaseConnectionPool dbConnectionPool;
 
 
-    public OtpResponController() {
+    public otpResponController() {
     }
 
     // ----------------------------------------------------------------------

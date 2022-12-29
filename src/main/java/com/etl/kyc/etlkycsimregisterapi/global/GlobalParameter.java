@@ -120,6 +120,7 @@ public class GlobalParameter {
 
     public static String fail_SOAP_Config = "222";
     public static String fail_SOAP_Config_msg = "Fail, SOAP Config";
+
     public static String fail_query_status = "1220";
     public static String fail_query_status_msg = "Number status not correct to new register";
     

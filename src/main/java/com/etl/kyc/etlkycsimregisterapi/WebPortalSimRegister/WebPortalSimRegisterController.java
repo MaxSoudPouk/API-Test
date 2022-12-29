@@ -1,8 +1,9 @@
-package com.etl.kyc.etlkycsimregisterapi.WebPortalSimRegister;//package com.etl.kyc.etlkycsimregisterapi.WebPortalSimRegister;
+//package com.etl.kyc.etlkycsimregisterapi.WebPortalSimRegister;
 //
 //import com.etl.kyc.etlkycsimregisterapi.db.Config;
 //import com.etl.kyc.etlkycsimregisterapi.db.DatabaseConnectionPool;
 //import com.etl.kyc.etlkycsimregisterapi.global.GlobalParameter;
+//import com.etl.kyc.etlkycsimregisterapi.security.GenerateSignkey_sha256;
 //import com.etl.kyc.etlkycsimregisterapi.simregister.Uploadimage;
 //import net.minidev.json.JSONObject;
 //import net.minidev.json.JSONValue;
@@ -56,7 +57,7 @@ package com.etl.kyc.etlkycsimregisterapi.WebPortalSimRegister;//package com.etl.
 //
 //    ) throws NoSuchAlgorithmException, java.io.IOException {
 //
-//        WebPortalSimregisterModel simregismodel = new WebPortalSimregisterModel();
+//        WebPortalSimregisterModel simregismodel = new WebPortalSimregisterModel(String firstName, String lastName);
 //        System.out.println("JSON =========== " + JSON);
 //
 //
@@ -108,16 +109,13 @@ package com.etl.kyc.etlkycsimregisterapi.WebPortalSimRegister;//package com.etl.
 //        if (idfamily.equals("") && passport.equals("")) {
 //            int doccument_id = 1;
 //            System.out.println(doccument_id);
-//        }else if (idcard.equals("") && passport.equals("")) {
+//        } else if (idcard.equals("") && passport.equals("")) {
 //            int doccument_id = 2;
 //            System.out.println(doccument_id);
-//        }else if ( idfamily.equals("") && idcard.equals("")) {
+//        } else if (idfamily.equals("") && idcard.equals("")) {
 //            int doccument_id = 3;
 //            System.out.println(doccument_id);
 //        }
-//
-//
-//
 //
 //
 //        if (sign.equals("")
@@ -143,11 +141,38 @@ package com.etl.kyc.etlkycsimregisterapi.WebPortalSimRegister;//package com.etl.
 //        }
 //
 //
-//
 //        SimpleDateFormat formatter111 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //        formatter111.setTimeZone(TimeZone.getTimeZone("Asia/Bangkok"));
 //
 //
+//        GenerateSignkey_sha256 signkey_sha256 = new GenerateSignkey_sha256();
+//        String userName = "";
+//        String transactionNo = "";
+//        String remark = "";
+//        String extraParams = "";
+//        String uuid = "";
+//        String des_url = "/etllao.com/v1/webportalsimregister";
+//        // =================================== default =================================== //
+//        int simtype_id = 1;
+//        String channel = "3";
+//        int status_id = 2;
+//        int sub_type_id = 2;
+//        //==================================== default =================================== //
+//
+//        String serverSign = signkey_sha256.generateSignkey_sha256(
+//                userName,
+//                channel,
+//                transactionNo,
+//                msisdn,
+//                remark,
+//                extraParams,
+//                uuid,
+//                des_url);
+//
+//        System.out.println("serverSign=" + serverSign);
+//
+//
+////serverSign.equals(sign.trim())
 //        if (sign.equals("9c5f1181fd9341ea08885dd5574be63a51545342e69b6e561301c2858d1abb03")) {
 //
 //
@@ -160,6 +185,7 @@ package com.etl.kyc.etlkycsimregisterapi.WebPortalSimRegister;//package com.etl.
 //            Statement statementtAuth = null;
 //            ResultSet resultSettAuth = null;
 //            Connection conntAuth = null;
+//
 ////            String querysql = "SELECT t.status_id,k.status_name from tb_subscriber_info t  INNER JOIN tb_status_info k \r\n"
 ////                    + "on t.status_id=k.status_id WHERE t.status_id in('1','2','4') and  t.msisdn='" + msisdn + "' order by t.reg_date desc LIMIT 1";
 ////
@@ -258,7 +284,7 @@ package com.etl.kyc.etlkycsimregisterapi.WebPortalSimRegister;//package com.etl.
 //
 //                simregismodel.setResultCode(GlobalParameter.error_upload_image);
 //                simregismodel.setResultMsg(GlobalParameter.error_upload_image_msg);
-////                    simregismodel.setTransactionID(transactionNo);
+////              simregismodel.setTransactionID(transactionNo);
 //                simregismodel.setExtraPara("n");
 //
 //                return simregismodel;
@@ -274,12 +300,7 @@ package com.etl.kyc.etlkycsimregisterapi.WebPortalSimRegister;//package com.etl.
 ////						Statement statementtAuth = null;
 ////						ResultSet resultSettAuth = null;
 ////						Connection conntAuth = null;
-//                //=================================== default =================================== //
-//                int simtype_id = 1;
-//                int channel = 3;
-//                int status_id = 2;
-//                int sub_type_id = 2;
-////=================================== default =================================== //
+//
 //                String sql = " insert into tb_subscriber_info (msisdn, fname, lname, gender_id, birthday, occupation, simtype_id,"
 //                        + "province_id, district_id, village_id, latitude, longtitude, img_person_path, img_doc_path, " +
 //                        "img_sim_path, img_org_register, docno_org, channel_id, status_id, sub_type_id)"
@@ -310,7 +331,7 @@ package com.etl.kyc.etlkycsimregisterapi.WebPortalSimRegister;//package com.etl.
 //                    statement.setString(15, URL_sim_linux);
 //                    statement.setString(16, URL_org_linux);
 //                    statement.setString(17, docno_org);
-//                    statement.setInt(18, channel);
+//                    statement.setString(18, channel);
 //                    statement.setInt(19, status_id);
 //                    statement.setInt(20, sub_type_id);
 //

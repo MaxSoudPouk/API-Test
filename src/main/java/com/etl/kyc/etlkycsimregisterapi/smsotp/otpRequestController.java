@@ -18,7 +18,7 @@ import java.util.Random;
 import java.util.TimeZone;
 
 @RestController
-public class OtpRequestController extends Thread {
+public class otpRequestController extends Thread {
 
     @PostMapping("/v1/OTPRequest")
     public otpModel otp(

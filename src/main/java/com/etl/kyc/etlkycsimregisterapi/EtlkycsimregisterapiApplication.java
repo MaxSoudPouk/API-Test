@@ -18,33 +18,32 @@ import java.awt.image.BufferedImage;
 @EnableAutoConfiguration
 @ComponentScan
 @SpringBootApplication
-public class EtlkycsimregisterapiApplication{
+public class EtlkycsimregisterapiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(EtlkycsimregisterapiApplication.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(EtlkycsimregisterapiApplication.class, args);
 
-	}
-	
-	
+    }
 
-	@Bean
-	public HttpMessageConverter<BufferedImage> bufferedImageHttpMessageConverter() {
-		return new BufferedImageHttpMessageConverter();
-	}
-	
-	
-	@Bean
-	public CommandLineRunner CommandLineRunnerBean() {
-		return (args) -> {
-		//	System.out.println("In Startup main");
+
+    @Bean
+    public HttpMessageConverter<BufferedImage> bufferedImageHttpMessageConverter() {
+        return new BufferedImageHttpMessageConverter();
+    }
+
+
+    @Bean
+    public CommandLineRunner CommandLineRunnerBean() {
+        return (args) -> {
+            //	System.out.println("In Startup main");
 //			threadRead threadRead = new threadRead();
 //			threadRead.contextInitialized(null);
-		};
-	}
+        };
+    }
 
 
-	//System.out.print("9999999998888888999999999999999");
-		
+    //System.out.print("9999999998888888999999999999999");
+
 }
 
 
