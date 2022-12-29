@@ -3,12 +3,14 @@ package com.etl.kyc.etlkycsimregisterapi.WebPortalSimRegister;
 import com.etl.kyc.etlkycsimregisterapi.db.Config;
 import com.etl.kyc.etlkycsimregisterapi.db.DatabaseConnectionPool;
 import com.etl.kyc.etlkycsimregisterapi.simregister.Uploadimage;
+import com.etl.kyc.etlkycsimregisterapi.userregister.EtlkycUserSimregisterController;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONPointerException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @RestController
-public class jsonloop {
+public class registerOrganizationController {
 
 
     //private static final String PATTERN_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -44,12 +46,19 @@ public class jsonloop {
     //public static String windowpath=directory=C:\Users\lacasoub\myUser\Local\Temp
     Connection connection1;
 
+    public registerOrganizationController() {
+        HttpServletRequest request;
+        //System.out.println("Sim register Start");
 
-    @RestController
-    public class MyController {
+    }
+
+    private void setRequest(HttpServletRequest request) {
+        registerOrganizationController.request = request;
+
+    }
 
 
-        @GetMapping("/json")
+        @PostMapping("/v1/registerOrganization")
         public ResponseEntity<Map<String, Object>> getJson(
                 @RequestParam String payload,
                 @RequestParam(defaultValue = "") String sign,
@@ -425,6 +434,5 @@ public class jsonloop {
             }
             return null;
         }
-    }
 }
 
